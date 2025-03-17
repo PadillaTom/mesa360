@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
 import { TableSchema } from "../schemas/schemas"
 import Table from "../models/Table"
-import Order from "../models/Order"
 
 export class TableController {
     

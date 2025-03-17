@@ -3,13 +3,13 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 
-import authRoutes from "./routes/auth";
-import profileRoutes from "./routes/profile";
-import memberRoutes from "./routes/member"
+import authRoutes from "./routes/authRoutes";
+import profileRoutes from "./routes/profileRoutes";
+import memberRoutes from "./routes/memberRoutes"
 import salonRoutes from "./routes/salonRoutes"
-import categoryRoutes from "./routes/category"
-import productRoutes from "./routes/product"
-import orderRoutes from "./routes/order"
+import categoryRoutes from "./routes/categoryRoutes"
+import productRoutes from "./routes/productRoutes"
+import orderRoutes from "./routes/orderRoutes"
 
 
 import connectDb from "./config/connectDB"
@@ -31,7 +31,7 @@ app.use("/api/category", categoryRoutes)
 app.use("/api/product", productRoutes)
 app.use("/api/order", orderRoutes)
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto: ${PORT}`);
 });

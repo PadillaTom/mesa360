@@ -6,11 +6,10 @@ import Owner from "../models/Owner";
 import Profile, { IProfile } from "../models/Profile";
 import { LoginSchema, RegisterSchema } from "../schemas/schemas";
 import Salon from "../models/Salon";
-import { Types } from "mongoose";
 import MemberDTO from "../dto/currentUserDto";
 
 
-export class Auth {
+export class AuthController {
 
     static register = async (req: Request, res: Response) => {
         const { email, password } = req.body;
