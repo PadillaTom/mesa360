@@ -9,6 +9,8 @@ const schemaZodEdit = z.object({
 	description: z.string(),
 	price: z.coerce.number().min(1, {
 		message: "Precio requerido",
+	}).max(999999, {
+		message: "Precio no puede ser mayor a a 6 digitos",
 	}),
 	target: z.string().min(1, {
 		message: "Objetivo requerido",
