@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/carousel';
 import { FormOptions } from '../form/FormOptions';
 import { createProductForm } from '../../schemas/product/schemaFromProduct';
-import { createCategoryFormSchema } from '../../schemas/category/schemasFromCategory';
+import { createCategoryFormSchema } from '../../schemas/category/schemaFromCategory';
 import { useCategories } from '../../../../../actions/hooks/categories/useCategories';
 import { ItemNav } from '../filter/ItemNav';
 import { cn } from '../../../../../lib/utils';

@@ -1,12 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { ItemNav } from './ItemNav';
-import { cn } from '../../../../../lib/utils';
-import { ModalOptionsCustom } from '../modal/ModalOptionsCustom';
-import { schemasModalCategory } from '../../schemas/category/schemasModalCategory';
-import { SchemaModal } from '../../types/schema';
-import { ContextList } from '../../types/list';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { ItemNav } from "./ItemNav";
+import { cn } from "../../../../../lib/utils";
+import { ModalOptionsCustom } from "../modal/ModalOptionsCustom";
+import { schemasModalCategory } from "../../schemas/category/schemasModalCategory";
+import { SchemaModal } from "../../types/schema";
+import { ContextList } from "../../types/list";
 
 interface Props {
 	context: ContextList;
@@ -21,11 +21,11 @@ export const NavFilter = ({ context }: Props) => {
 		<div className="mx-auto">
 			<Carousel
 				opts={{
-					align: 'center',
+					align: "center",
 				}}
-				className={cn('w-full flex items-center')}
+				className={cn("w-full flex items-center")}
 			>
-				<CarouselPrevious className={cn('sticky aspect-square translate-0 top-auto')} />
+				<CarouselPrevious className={cn("sticky aspect-square translate-0 top-auto")} />
 				<CarouselContent className="">
 					<CarouselItem onClick={() => context.setSelectedCategory(null)} className="basis-auto my-1">
 						<ItemNav isSelected={!context.selectedCategory}></ItemNav>
@@ -40,7 +40,7 @@ export const NavFilter = ({ context }: Props) => {
 						</CarouselItem>
 					))}
 				</CarouselContent>
-				<CarouselNext className={cn('sticky aspect-square translate-0 top-auto ')} />
+				<CarouselNext className={cn("sticky aspect-square translate-0 top-auto ")} />
 			</Carousel>
 			<div className="flex justify-center gap-5">
 				{schemasModalCategory.map((schemasModal) => {

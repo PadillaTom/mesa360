@@ -2,8 +2,8 @@ import { Category } from '../../../../../types/category';
 import { Button } from '../../../../../components/ui/button';
 import { ReactNode } from 'react';
 import { cn } from '../../../../../lib/utils';
-import { deleteCategoryFormSchema, editCategoryFormSchema } from './schemasFromCategory';
 import { SchemaModal } from '../../types/schema';
+import { deleteCategoryFormSchema, editCategoryFormSchema } from './schemaFromCategory';
 
 interface PropsButton {
 	category?: Category;
