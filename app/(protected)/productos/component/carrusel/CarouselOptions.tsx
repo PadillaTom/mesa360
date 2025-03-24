@@ -21,7 +21,7 @@ interface Props {
 }
 export function CarouselOptions({ setOpen }: Props) {
 	const { data: categories } = useCategories();
-	const [categorySelected, setCategorySelected] = useState<string>();
+	const [categorySelected, setCategorySelected] = useState<string>("");
 
 	const [api, setApi] = useState<CarouselApi>();
 	const [current, setCurrent] = useState(0);
@@ -64,7 +64,7 @@ export function CarouselOptions({ setOpen }: Props) {
 					<CarouselItem className="self-center">
 						<Card>
 							<CardContent className="flex justify-center py-6">
-								<FormOptions formSchemaData={createCategoryFormSchema} setOpenForm={setOpen}></FormOptions>
+								<FormOptions setCategorySelected={setCategorySelected} formSchemaData={createCategoryFormSchema} setOpenForm={setOpen}></FormOptions>
 							</CardContent>
 						</Card>
 					</CarouselItem>

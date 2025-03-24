@@ -16,7 +16,7 @@ export interface schemaComponentForm {
 	funtionForm: 'Crear' | 'Editar' | 'Eliminar';
 	schema: ZodSchema;
 	campos: campos[];
-	defaultValues?: EditProductRequest | CreateProductRequest | EditCategoryRequest;
+	defaultValues?: EditProductRequest | CreateProductRequest | EditCategoryRequest ;
 }
 export interface SchemaModal {
 	typeModal: 'Crear' | 'Editar' | 'Eliminar';

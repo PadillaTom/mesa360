@@ -12,7 +12,7 @@ const schemaZodEdit = z.object({
 	}).max(999999, {
 		message: "Precio no puede ser mayor a a 6 digitos",
 	}),
-	target: z.string().min(1, {
+	target: z.string().min(2, {
 		message: "Objetivo requerido",
 	}),
 	categoryId: z.string().min(1, {
@@ -56,8 +56,8 @@ export const createProductForm: schemaComponentForm = {
 		name: "",
 		description: "",
 		price: 0,
-		categoryId: "123" /* es ensesario que no este vacio */,
-		target: "bar",
+		categoryId: "" /* es ensesario que no este vacio */,
+		target: null,
 	},
 };
 

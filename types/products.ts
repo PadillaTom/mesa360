@@ -37,7 +37,7 @@ export interface CreateProductRequest {
 	name: string;
 	description: string;
 	price: number;
-	target: 'kitchen' | 'bar';
+	target: 'kitchen' | 'bar' | null;
 }
 
 export interface AllProductsResponse {

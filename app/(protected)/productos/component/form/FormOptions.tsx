@@ -26,12 +26,23 @@ interface Props {
 	buttonsCarousel?: ((jump?: boolean) => void) | undefined;
 	categorySelected?: string;
 	setOpenForm: React.Dispatch<React.SetStateAction<boolean>>;
+	setCategorySelected?: React.Dispatch<React.SetStateAction<string>>;
 }
-export function FormOptions({ formSchemaData, children, item, buttonsCarousel, categorySelected, setOpenForm }: Props) {
+
+export function FormOptions({
+	formSchemaData,
+	children,
+	item,
+	buttonsCarousel,
+	categorySelected,
+	setOpenForm,
+	setCategorySelected,
+}: Props) {
 	const target: Array<"bar" | "kitchen" | undefined> = ["kitchen", "bar"];
 	const [targetSelected, setTargetSelected] = useState<"kitchen" | "bar" | undefined>(
 		item && "target" in item ? item.target : undefined
 	);
+
 	const { mutate: createProduct } = useCreateProduct();
 	const { mutate: updateProduct } = useUpdateProduct();
 	const { mutate: deleteProduct } = useDeleteProduct();
@@ -48,6 +59,7 @@ export function FormOptions({ formSchemaData, children, item, buttonsCarousel, c
 	const onSubmit: SubmitHandler<z.infer<typeof formSchemaData.schema>> = (data) => {
 		console.log("data", data);
 		setOpenForm(false);
+
 		/* refactorizar */
 		// CATEGORIES
 		if (targetSelected) {
@@ -73,7 +85,7 @@ export function FormOptions({ formSchemaData, children, item, buttonsCarousel, c
 
 			if (formSchemaData.funtionForm === "Crear") {
 				data.categoryId = categorySelected;
-
+				if (data.description == "") data.description = "--";
 				createProduct(data);
 			}
 			if (formSchemaData.funtionForm === "Editar") {
@@ -101,14 +113,12 @@ export function FormOptions({ formSchemaData, children, item, buttonsCarousel, c
 								control={form.control}
 								name={campo.name}
 								render={({ field }) => (
-									<FormItem>
-										<FormLabel className={cn({ Id: "hidden", Categoria: "hidden", Objetivo: "hidden" }[campo.label])}>
-											{campo.label}
-										</FormLabel>
+									<FormItem className={cn({ Id: "hidden", Categoria: "hidden", Objetivo: "hidden" }[campo.label])}>
+										<FormLabel>{campo.label}</FormLabel>
 										<FormControl>
-											<InputCustom field={field} campo={campo}></InputCustom>
+											<InputCustom field={field} campo={campo} categoriSelected={categorySelected}></InputCustom>
 										</FormControl>
-										<FormMessage className={cn("text-xs !my-0 ")} />
+										<FormMessage className={cn("text-xs !my-0")} />
 									</FormItem>
 								)}
 							/>
@@ -117,30 +127,59 @@ export function FormOptions({ formSchemaData, children, item, buttonsCarousel, c
 				</div>
 
 				{formSchemaData.type !== "category" && formSchemaData.funtionForm !== "Eliminar" && (
-					<FormItem className="w-4/5 space-y-0 text-center">
-						<FormLabel className="m-0 p-0 ">Objetivo</FormLabel>
-						<div className="flex gap-2 ">
-							{target.map((t) => (
-								<span className="w-[50%]" key={t} onClick={() => setTargetSelected(t)}>
-									<FormControl>
-										<ItemNav isSelected={targetSelected === t}>{t}</ItemNav>
-									</FormControl>
-								</span>
-							))}
-						</div>
-					</FormItem>
+					<FormField
+						control={form.control}
+						name={"target"}
+						render={({ field }) => (
+							<FormItem className="w-4/5 space-y-0 text-center">
+								<FormLabel className="m-0 p-0 ">Objetivo</FormLabel>
+								<div className="flex gap-2 ">
+									{target.map((t) => (
+										<span className="w-[50%]" key={t} onClick={() => setTargetSelected(t)}>
+											<FormControl>
+												<ItemNav isSelected={targetSelected === t}>{t}</ItemNav>
+											</FormControl>
+										</span>
+									))}
+								</div>
+							</FormItem>
+						)}
+					/>
 				)}
 
 				{formSchemaData.type !== "category" && formSchemaData.funtionForm !== "Eliminar" && (
-					<>
-						<FormItem className="w-4/5 mt-3">
-							<FormLabel className="">
-								<div onClick={() => buttonsCarousel?.()}>
-									<ItemNav isSelected={!!categorySelected}>Seleccionar Categoria </ItemNav>
-								</div>
-							</FormLabel>
-						</FormItem>
-					</>
+					<FormField
+						control={form.control}
+						name={"categoryId"}
+						render={({ field }) => {
+							return (
+								<FormItem className="w-4/5 mt-3">
+									<FormLabel>
+										<FormControl>
+											<input
+												{...field}
+												onChange={(e) => {
+													field.onChange(e.target.value);
+													setCategorySelected?.(e.target.value);
+													console.log("e.target.value", e.target.value);
+												}}
+												value={categorySelected}
+											/>
+										</FormControl>
+									</FormLabel>
+									<div onClick={() => buttonsCarousel?.()}>
+										<ItemNav
+											className={cn(form.formState.errors.categoryId && "border-2 border-red-500")}
+											isSelected={!!categorySelected}
+										>
+											Seleccionar Categoria
+										</ItemNav>
+									</div>
+									<FormMessage className={cn("text-xs !my-0")} />
+								</FormItem>
+							);
+						}}
+					/>
 				)}
 
 				{children}
